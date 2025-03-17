@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MARS Shop</title>
+    <style>
+             body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f8f8f8;
+}
+
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: white;
+    padding: 15px 20px;
+    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.logo {
+    font-size: 24px;
+    font-weight: bold;
+}
+
+nav ul {
+    list-style: none;
+    display: flex;
+    padding: 0;
+}
+main{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+nav ul li {
+    margin: 0 15px;
+}
+
+nav ul li a {
+    text-decoration: none;
+    color: black;
+}
+
+nav ul .active a {
+    color: orange;
+    font-weight: bold;
+}
+
+.post-btn {
+    background-color: orange;
+    color: white;
+    border: none;
+    padding: 8px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+main {
+    display: flex;
+    padding: 20px;
+}
+
+.sidebar {
+    width: 20%;
+    padding: 15px;
+}
+
+.search-box {
+    display: flex;
+    gap: 5px;
+}
+
+.search-box input {
+    flex: 1;
+    padding: 5px;
+}
+
+.search-box button {
+    background-color: black;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    cursor: pointer;
+}
+
+.history {
+    color: orange;
+    margin-top: 20px;
+}
+
+.products {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    width: 80%;
+}
+
+.product {
+    background: white;
+    padding: 15px;
+    border-radius: 10px;
+    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    width: 200px;
+}
+
+.product img {
+    width: 100px;
+    height: 100px;
+}
+
+.price {
+    font-weight: bold;
+    color: orange;
+}
+
+footer {
+    text-align: center;
+    padding: 10px;
+    background-color: white;
+    box-shadow: 0px -2px 5px rgba(0, 0, 0, 0.1);
+}
+.text{
+    width: 386px;
+height: 25px;
+background: rgba(0, 0, 0, 1);
+
+border-radius: 20px;
+
+}
+.sidebar{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 50px;
+}
+    </style>
+    <link rel="stylesheet" href="styles.css"> 
+</head>
+<body>
+    <header>
+        <div class="logo">MARS<sup>®</sup></div>
+        <nav>
+            <ul>
+                <li><a href="#">Home</a></li>
+                <li><a href="#">Learning</a></li>
+                <li class="active"><a href="#">Shop</a></li>
+            </ul>
+        </nav>
+        <button class="post-btn">+ Post yaratish</button>
+    </header>
+
+    <main>
+        <aside class="sidebar">
+            <h2>🛒 Magazin</h2>
+            <div class="search-box">
+                <input id="search" class="text" type="text" placeholder="Qidirish...">
+                <button id="searchBtn">🔍</button>
+            </div>
+            <p class="history">🛒 Haridlar tarixi</p>
+        </aside>
+
+        <section class="products" id="productList">
+            <!-- Mahsulotlar JavaScript orqali yuklanadi -->
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2025 MARS School</p>
+    </footer>
+
+    <script>
+        let products = [
+            { name: "Sichqoncha", price: 100, image: "images/mouse.png", stock: 25 },
+            { name: "Keyboard Sticker", price: 500, image: "images/keyboard.png", stock: 25 },
+            { name: "Smart Watch", price: 3000, image: "images/smartwatch.png", stock: 25 },
+            { name: "Mouse", price: 500, image: "images/mouse.png", stock: 25 },
+            { name: "AirPods", price: 4000, image: "images/airpods.png", stock: 25 },
+            { name: "Powerbank", price: 2000, image: "images/powerbank.png", stock: 25 },
+            { name: "Smartphone", price: 9000, image: "images/smartphone.png", stock: 25 },
+            { name: "PlayStation 5", price: 25000, image: "images/ps5.png", stock: 25 },
+            { name: "Yandex Station", price: 15000, image: "images/yandex.png", stock: 25 },
+            { name: "Samsung Tablet", price: 2000, image: "images/tablet.png", stock: 25 }
+        ];
+
+        let productList = document.getElementById("productList");
+
+        function renderProducts(items) {
+            productList.innerHTML = "";
+            items.forEach(product => {
+                let productCard = document.createElement("div");
+                productCard.classList.add("product");
+                productCard.innerHTML = `
+                    <img src="${product.image}" alt="${product.name}">
+                    <h3>${product.name}</h3>
+                    <p class="price">${product.price} Coins</p>
+                    <p>${product.stock} dona mavjud</p>
+                `;
+                productList.appendChild(productCard);
+            });
+        }
+
+        document.getElementById("search").addEventListener("input", function() {
+            let searchText = this.value.toLowerCase();
+            let filteredProducts = products.filter(product => 
+                product.name.toLowerCase().includes(searchText)
+            );
+            renderProducts(filteredProducts);
+        });
+
+        renderProducts(products);
+    </script>
+</body>
+</html>
